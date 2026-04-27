@@ -1,0 +1,527 @@
+/* ══════════════════════════════════════
+   ZODIAC GAME — Windows 2000 / IE Design
+   ══════════════════════════════════════ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: Tahoma, Arial, '宋体', sans-serif;
+  font-size: 11px;
+  background: #008080;   /* bureau Windows teal */
+  color: #000;
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* ── Fond étoilé ── */
+#stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ════════════════════════════
+   CHROME INTERNET EXPLORER
+   ════════════════════════════ */
+.ie-window {
+  position: fixed;
+  inset: 2px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  background: #d4d0c8;
+  border: 2px solid;
+  border-color: #ffffff #404040 #404040 #ffffff;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+}
+
+/* Barre de titre */
+.ie-titlebar {
+  background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+  color: #fff;
+  padding: 3px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 11px;
+  user-select: none;
+  cursor: default;
+  flex-shrink: 0;
+}
+.ie-titlebar-btns { display: flex; gap: 2px; }
+.ie-titlebtn {
+  width: 16px; height: 14px;
+  background: #d4d0c8;
+  border: 1px solid;
+  border-color: #fff #808080 #808080 #fff;
+  cursor: pointer;
+  font-size: 8px; font-weight: bold;
+  display: flex; align-items: center; justify-content: center;
+  color: #000; padding: 0; font-family: Tahoma;
+}
+.ie-titlebtn:active { border-color: #808080 #fff #fff #808080; }
+.ie-titlebtn-close:hover { background: #cc0000; color: #fff; }
+
+/* Barre de menus */
+.ie-menubar {
+  background: #d4d0c8;
+  padding: 1px 3px;
+  display: flex;
+  border-bottom: 1px solid #808080;
+  flex-shrink: 0;
+}
+.ie-menuitem {
+  padding: 3px 8px;
+  cursor: default;
+  font-size: 11px;
+}
+.ie-menuitem:hover {
+  background: #000080;
+  color: #fff;
+}
+
+/* Toolbar */
+.ie-toolbar {
+  background: #d4d0c8;
+  padding: 3px 4px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  border-bottom: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+.ie-toolbtn {
+  background: #d4d0c8;
+  border: 1px solid transparent;
+  cursor: pointer;
+  padding: 3px 7px;
+  font-size: 11px;
+  font-family: Tahoma, Arial, sans-serif;
+  color: #000;
+  white-space: nowrap;
+}
+.ie-toolbtn:hover { border-color: #fff #808080 #808080 #fff; }
+.ie-toolbtn:active { border-color: #808080 #fff #fff #808080; }
+.ie-sep { color: #808080; padding: 0 3px; font-size: 14px; }
+
+/* Barre d'adresse */
+.ie-addrbar {
+  display: flex; align-items: center; gap: 4px; flex: 1; min-width: 0;
+}
+.ie-addrlabel { white-space: nowrap; font-size: 11px; }
+.ie-addrinput {
+  flex: 1; height: 20px;
+  border: 2px solid; border-color: #808080 #fff #fff #808080;
+  background: #fff; font-size: 11px; padding: 0 4px;
+  font-family: Tahoma; color: #000080; min-width: 0;
+}
+.ie-gobtn {
+  background: #d4d0c8;
+  border: 1px solid; border-color: #fff #808080 #808080 #fff;
+  cursor: pointer; padding: 2px 8px; font-size: 11px; font-family: Tahoma;
+  white-space: nowrap;
+}
+.ie-gobtn:active { border-color: #808080 #fff #fff #808080; }
+
+.ie-throbber {
+  font-size: 16px;
+  margin-left: 4px;
+  animation: spin 1.8s linear infinite;
+  flex-shrink: 0;
+}
+.ie-throbber.idle { animation: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Marquee */
+.ie-marquee {
+  background: #000080;
+  color: #ffff00;
+  font-size: 11px;
+  padding: 2px 0;
+  font-family: Tahoma;
+  flex-shrink: 0;
+}
+
+/* Zone de contenu */
+.ie-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: rgba(0, 0, 17, 0.92);
+  position: relative;
+}
+
+/* Barre de statut */
+.ie-statusbar {
+  background: #d4d0c8;
+  border-top: 1px solid #808080;
+  padding: 2px 4px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+.ie-statuszone {
+  padding-left: 8px;
+  border-left: 1px solid #808080;
+}
+
+/* ════════════════════════════
+   CONTENU WEBAPP (2000s web)
+   ════════════════════════════ */
+
+#app {
+  position: relative;
+  z-index: 1;
+  padding: 16px;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* ── Screens ── */
+.screen {
+  width: 100%;
+  max-width: 660px;
+  animation: fadeIn 0.3s ease;
+}
+.screen.hidden { display: none !important; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Dialog Windows (cartes) ── */
+.win-dialog {
+  background: #d4d0c8;
+  border: 2px solid;
+  border-color: #ffffff #404040 #404040 #ffffff;
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.6);
+  margin-bottom: 12px;
+}
+
+.win-dialog-title {
+  background: linear-gradient(90deg, #000080, #1084d0);
+  color: #fff;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 11px;
+  user-select: none;
+}
+.win-dialog-btns { display: flex; gap: 2px; }
+.win-dlgbtn {
+  width: 16px; height: 14px;
+  background: #d4d0c8;
+  border: 1px solid; border-color: #fff #808080 #808080 #fff;
+  cursor: pointer; font-size: 9px; color: #000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0;
+}
+
+.win-dialog-body { padding: 16px; }
+
+/* ── En-tête de page ── */
+.page-header { margin-bottom: 14px; }
+
+h1 {
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+  font-size: 22px;
+  color: #ffff00;
+  text-shadow: 2px 2px 0 #000080;
+  margin-bottom: 4px;
+  text-align: center;
+}
+h2 { font-family: 'Comic Sans MS', cursive; font-size: 16px; color: #ffff00; text-shadow: 1px 1px #000080; }
+
+.tagline {
+  color: #00ff00;
+  font-size: 11px;
+  text-align: center;
+  margin-bottom: 10px;
+  font-family: Tahoma;
+}
+
+.retro-badge {
+  background: #ff0000;
+  color: #fff;
+  font-weight: bold;
+  font-size: 11px;
+  padding: 2px 6px;
+  border: 1px solid #ffff00;
+  animation: blink 1s step-end infinite;
+  white-space: nowrap;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.ie-hr {
+  border: none;
+  border-top: 2px solid;
+  border-color: #808080 transparent transparent transparent;
+  border-bottom: 1px solid #fff;
+  margin: 10px 0;
+}
+
+.footer-txt { color: #808080; font-size: 10px; text-align: center; margin-top: 8px; }
+
+/* ── Formulaire ── */
+.form { }
+.field { margin-bottom: 14px; }
+.field label {
+  display: block;
+  font-size: 11px;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 4px;
+}
+.field-hint { font-size: 10px; color: #000080; margin-bottom: 6px; }
+
+input[type="text"] {
+  height: 21px;
+  border: 2px solid; border-color: #808080 #fff #fff #808080;
+  background: #fff;
+  font-size: 11px;
+  padding: 0 4px;
+  font-family: Tahoma;
+  color: #000;
+  outline: none;
+  width: 100%;
+}
+input[type="text"]:focus { border-color: #000080 #c0c0c0 #c0c0c0 #000080; }
+
+/* ── Grille de signes ── */
+.sign-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3px;
+  background: #fff;
+  border: 2px inset #d4d0c8;
+  padding: 6px;
+}
+.sign-btn {
+  background: #d4d0c8;
+  border: 1px solid; border-color: #fff #808080 #808080 #fff;
+  cursor: pointer;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 6px 3px 5px;
+  gap: 2px;
+  font-size: 10px;
+  font-family: Tahoma;
+  color: #000;
+}
+.sign-btn:hover {
+  background: #000080; color: #fff;
+  border-color: #fff #404040 #404040 #fff;
+}
+.sign-btn.selected {
+  background: #000080; color: #ffff00;
+  border-color: #808080 #fff #fff #808080;
+}
+.sign-symbol { font-size: 1.3rem; }
+.sign-name { font-size: 9px; font-weight: bold; }
+
+/* ── Boutons ── */
+.btn {
+  display: inline-block;
+  background: #d4d0c8;
+  border: 2px solid; border-color: #fff #404040 #404040 #fff;
+  cursor: pointer;
+  font-size: 11px; font-family: Tahoma; color: #000;
+  padding: 5px 20px;
+  margin: 4px 4px 0;
+  white-space: nowrap;
+  min-width: 120px;
+}
+.btn:hover:not(:disabled) { background: #c4c0b8; }
+.btn:active:not(:disabled) { border-color: #404040 #fff #fff #404040; padding: 6px 19px 4px 21px; }
+.btn:disabled { color: #808080; cursor: default; }
+.btn-primary { font-weight: bold; min-width: 160px; }
+.btn-ghost { color: #808080; font-size: 10px; }
+
+/* ── Erreur / hint ── */
+.error-msg {
+  background: #fff0f0; border: 1px solid #cc0000;
+  color: #cc0000; font-size: 10px; padding: 4px 8px;
+  margin-bottom: 8px;
+}
+.error-msg.hidden { display: none; }
+.hint { color: #808080; font-size: 10px; text-align: center; margin-top: 4px; }
+
+/* ── Badge ── */
+.badge {
+  background: #000080; color: #fff;
+  font-size: 9px; font-weight: bold;
+  padding: 1px 6px;
+  border: 1px solid #808080;
+}
+
+/* ── Fieldset ── */
+.win-fieldset {
+  border: 2px groove #d4d0c8;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  background: #fff;
+}
+.win-fieldset legend {
+  background: #d4d0c8;
+  padding: 0 4px;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+/* ── Liste de joueurs ── */
+.player-list { list-style: none; }
+.player-list li {
+  display: flex; align-items: center; gap: 6px;
+  padding: 3px 6px;
+  border-bottom: 1px solid #d4d0c8;
+  font-size: 11px;
+  background: #fff;
+  animation: fadeIn 0.2s ease;
+}
+.player-list li:nth-child(odd) { background: #f4f4f4; }
+.player-avatar {
+  width: 20px; height: 20px;
+  background: #000080; color: #fff;
+  font-size: 9px; font-weight: bold;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid #808080;
+  flex-shrink: 0;
+}
+.player-name { flex: 1; }
+
+.hint-box {
+  background: #ffffcc; border: 1px solid #999900;
+  color: #666600; font-size: 10px;
+  padding: 6px 8px; margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+/* ── Phase devinettes ── */
+.ready-bar {
+  background: #fff; border: 2px inset; height: 14px; overflow: hidden;
+}
+.ready-fill {
+  background: #000080; height: 100%;
+  transition: width 0.3s;
+  width: 0%;
+}
+
+.guess-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.guess-card {
+  background: #d4d0c8;
+  border: 2px solid; border-color: #fff #404040 #404040 #fff;
+  animation: fadeIn 0.3s ease;
+}
+.guess-card.guessed .guess-card-header { background: #000080; color: #fff; }
+
+.guess-card-header {
+  background: #808080; color: #fff;
+  padding: 3px 6px;
+  display: flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: bold;
+}
+.guess-card-name { flex: 1; }
+.guess-status { font-size: 1rem; }
+
+.mini-sign-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  padding: 5px;
+  background: #d4d0c8;
+}
+.mini-sign-btn {
+  background: #d4d0c8;
+  border: 1px solid; border-color: #fff #808080 #808080 #fff;
+  cursor: pointer;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 3px 1px;
+  font-size: 9px; font-family: Tahoma; color: #000;
+}
+.mini-sign-btn:hover { background: #000080; color: #fff; }
+.mini-sign-btn.selected { background: #000080; color: #ffff00; border-color: #808080 #fff #fff #808080; }
+.mini-sign-btn .s { font-size: 1rem; }
+
+/* ── Révélation ── */
+.reveal-cards { margin-bottom: 12px; }
+
+.reveal-card {
+  background: #d4d0c8;
+  border: 2px solid; border-color: #fff #404040 #404040 #fff;
+  margin-bottom: 8px;
+  animation: fadeIn 0.4s ease both;
+}
+.reveal-card-header {
+  background: #000080; color: #fff;
+  padding: 4px 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.reveal-sign-bubble {
+  background: #000080; border: 1px solid #ffff00;
+  width: 36px; height: 36px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  font-size: 8px; color: #ffff00; flex-shrink: 0;
+  gap: 1px;
+}
+.reveal-sign-bubble .big { font-size: 1.2rem; }
+.reveal-name { font-size: 12px; font-weight: bold; flex: 1; }
+.reveal-score { font-size: 10px; color: #aaaaff; }
+
+.guesses-list {
+  padding: 6px 8px;
+  display: flex; flex-wrap: wrap; gap: 4px;
+  background: #fff;
+}
+.guess-chip {
+  font-size: 10px; padding: 2px 8px;
+  border: 1px solid; font-family: Tahoma;
+}
+.guess-chip.correct { background: #ccffcc; border-color: #006600; color: #004400; }
+.guess-chip.wrong { background: #ffcccc; border-color: #cc0000; color: #880000; }
+.guess-chip.no-guess { background: #f0f0f0; border-color: #808080; color: #808080; }
+
+/* ── Podium ── */
+.podium {
+  background: #d4d0c8;
+  border: 2px solid; border-color: #fff #404040 #404040 #fff;
+  margin-bottom: 10px;
+}
+.podium-titlebar {
+  background: linear-gradient(90deg, #804000, #c87020);
+  color: #ffff00; font-size: 11px; font-weight: bold;
+  padding: 3px 8px;
+}
+.podium-body { background: #fff; padding: 6px 8px; }
+.podium-list { list-style: none; }
+.podium-entry {
+  display: flex; align-items: center; gap: 8px;
+  padding: 3px 4px;
+  border-bottom: 1px solid #d4d0c8;
+  font-size: 11px;
+}
+.podium-rank { font-size: 14px; width: 24px; }
+.podium-name { flex: 1; }
+.podium-points { font-weight: bold; color: #000080; }
+
+/* ── Responsive ── */
+@media (max-width: 520px) {
+  .sign-grid { grid-template-columns: repeat(3, 1fr); }
+  .guess-cards { grid-template-columns: 1fr; }
+  .ie-toolbar { flex-wrap: wrap; }
+  .ie-addrbar { display: none; }
+}

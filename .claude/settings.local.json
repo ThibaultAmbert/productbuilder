@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(npm install *)",
+      "PowerShell($env:PATH += \";C:\\\\Program Files\\\\nodejs\"; cd \"C:\\\\Users\\\\finan\\\\Desktop\\\\formation builder\"; & \"C:\\\\Program Files\\\\nodejs\\\\npm.cmd\" install 2>&1)"
+    ]
+  }
+}
